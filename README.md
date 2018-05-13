@@ -1,1 +1,2 @@
-# rxjava-study
+# RxJava Study
+Reactive Programming with RxJava
