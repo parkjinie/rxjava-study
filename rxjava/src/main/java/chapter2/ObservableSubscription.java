@@ -4,10 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import rx.Observable;
 import rx.Observer;
 
-/**
- * @author jinie@coupang.com
- * @since 2018. 5. 13.
- */
 @Slf4j
 public class ObservableSubscription {
 
