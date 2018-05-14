@@ -13,12 +13,33 @@ public class ObservableCreationTest {
     }
 
     @Test
-    public void create() {
+    public void just() {
         observableCreation.just();
+    }
+
+    @Test
+    public void from() {
         observableCreation.from();
+    }
+
+    @Test
+    public void range() {
         observableCreation.range();
+    }
+
+    @Test
+    public void empty() {
         observableCreation.empty();
+    }
+
+    @Test
+    public void never() {
         observableCreation.never();
+        observableCreation.error();
+    }
+
+    @Test
+    public void error() {
         observableCreation.error();
     }
 }

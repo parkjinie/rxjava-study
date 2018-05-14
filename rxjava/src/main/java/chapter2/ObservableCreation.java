@@ -2,55 +2,58 @@ package chapter2;
 
 import lombok.extern.slf4j.Slf4j;
 import rx.Observable;
-import rx.Observer;
 
 import java.util.Arrays;
 
 @Slf4j
-public class ObservableCreation {
+class ObservableCreation {
 
-    public void just() {
+    void just() {
         log.info("[Observable.just()]");
         Observable.just("Banana", "Kiwi", "Apple")
                   .subscribe(log::info);
     }
 
-    public void from() {
+    void from() {
         log.info("[Observable.from()]");
         Observable.from(Arrays.asList("Banana", "Kiwi", "Apple"))
                   .subscribe(log::info);
     }
 
-    public void range() {
+    void range() {
         log.info("[Observable.range()]");
         Observable.range(3, 3)
                   .subscribe(number -> log.info("number: {}", number));
     }
 
-    public void empty() {
+    void empty() {
         log.info("[Observable.empty()]");
         Observable.empty()
                   .subscribe(
-                          o -> {},
-                          e -> log.warn("Observable.empty() never call onError()", e),
+                          o -> {}, // Never called
+                          e -> {}, // Never called
                           () -> log.info("Called only onCompleted()")
                   );
     }
 
-    public void never() {
+    void never() {
         log.info("[Observable.never()]");
         Observable.never()
-                  .subscribe(o -> {});
+                  .subscribe(
+                          o -> {}, // Never called
+                          e -> {}, // Never called
+                          () -> {} // Never called
+                  );
         log.info("Nothing is subscribed");
     }
 
-    public void error() {
+    void error() {
         log.info("[Observable.error()]");
         Observable.error(new Exception("Observable.never() throws Exception"))
                   .subscribe(
-                          o -> {},
+                          o -> {}, // Never called
                           e -> log.warn("Observable.never() notifies error", e),
-                          () -> log.info("Observable.never() never call onCompleted()")
+                          () -> {} // Never called
                   );
     }
 }
