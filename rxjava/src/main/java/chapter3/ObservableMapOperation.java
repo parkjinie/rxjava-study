@@ -4,19 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import rx.Observable;
 
 @Slf4j
-public class ObservableOperation {
+class ObservableMapOperation {
 
-    public void filter() {
-        Observable<String> strings = Observable.just("#a", "a", "b", "#b", "c");
-        log.info("Before filtered:");
-        strings.subscribe(log::info);
-
-        Observable<String> filtered = strings.filter(s -> s.startsWith("#"));
-        log.info("After filtered:");
-        filtered.subscribe(log::info); // #a, #b
-    }
-
-    public void map() {
+    void map() {
         Observable<Integer> numbers = Observable.range(0, 5);
         log.info("Before mapped:");
         numbers.subscribe(number -> log.info("{}", number)); // 0, 1, 2, 3, 4
@@ -26,7 +16,7 @@ public class ObservableOperation {
         mapped.subscribe(log::info); // #0, #1, #2, #3, #4
     }
 
-    public void flatMap() {
+    void flatMap() {
         Observable<Observable<Integer>> observables = Observable.just(
                 Observable.range(0, 2),
                 Observable.range(2, 2),
@@ -34,6 +24,7 @@ public class ObservableOperation {
         );
 
         Observable<Integer> numbers = observables.flatMap(observable -> observable);
+        log.info("After flatten:");
         numbers.subscribe(number -> log.info("{}", number)); // 0, 1, 2, 3, 4, 5
     }
 }

@@ -3,12 +3,16 @@ package chapter3;
 import lombok.extern.slf4j.Slf4j;
 import rx.Observable;
 
-import java.util.concurrent.TimeUnit;
+import static java.lang.Thread.sleep;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 @Slf4j
-public class ObservableMergeOperation {
+class ObservableMergeOperation {
 
-    public void merge() {
+    /**
+     * put multiple streams in one stream
+     */
+    void merge() {
         Observable<String> animals = Observable.just("Rabbit", "Tiger", "Panda");
         Observable<String> fruits = Observable.just("Mango", "Apple", "Orange");
         Observable<String> countries = Observable.just("Korea", "Japan", "China");
@@ -17,7 +21,10 @@ public class ObservableMergeOperation {
         merged.subscribe(log::info); // Rabbit, Tiger, Panda, Mango, Apple, Orange, Korea, Japan, China
     }
 
-    public void zip() {
+    /**
+     * tied synchronously
+     */
+    void zip() {
         Observable<String> continents = Observable.just("Asia", "Asia", "Asia");
         Observable<String> countries = Observable.just("Korea", "Japan", "China");
         Observable<String> capitals = Observable.just("Seoul", "Tokyo", "Beijing");
@@ -31,7 +38,7 @@ public class ObservableMergeOperation {
         zipped.subscribe(log::info); //Asia-Korea-Seoul, Asia-Japan-Tokyo, Asia-China-Beijing
     }
 
-    public void zipWith() {
+    void zipWith() {
         Observable<String> countries = Observable.just("Korea", "Japan", "China");
         Observable<String> capitals = Observable.just("Seoul", "Tokyo", "Beijing");
 
@@ -43,12 +50,11 @@ public class ObservableMergeOperation {
     }
 
     /**
-     * logged when slowInterval or fastInterval notified
-     * @throws InterruptedException
+     * tied when whether 'slowInterval' or 'fastInterval' notified
      */
-    public void combineLatest() throws InterruptedException {
-        Observable<String> slowInterval = Observable.interval(17, TimeUnit.MILLISECONDS).map(s -> "S" + s);
-        Observable<String> fastInterval = Observable.interval(10, TimeUnit.MILLISECONDS).map(f -> "F" + f);
+    void combineLatest() {
+        Observable<String> slowInterval = Observable.interval(17, MILLISECONDS).map(s -> "S" + s);
+        Observable<String> fastInterval = Observable.interval(10, MILLISECONDS).map(f -> "F" + f);
 
         Observable<String> combined = Observable.combineLatest(
                 slowInterval,
@@ -57,16 +63,15 @@ public class ObservableMergeOperation {
         );
         combined.forEach(log::info); // F0:S0, F1:S0, F2:S0, F2:S1, F3:S1, ...
 
-        Thread.sleep(1000); // added because of running 'combined' during that time.
+        executeIntervalStreamWithSleep(1000);
     }
 
     /**
-     * logged only when slowInterval notified
-     * @throws InterruptedException
+     * tied only when 'slowInterval' notified
      */
-    public void withLatestFrom() throws InterruptedException {
-        Observable<String> slowInterval = Observable.interval(17, TimeUnit.MILLISECONDS).map(s -> "S" + s);
-        Observable<String> fastInterval = Observable.interval(10, TimeUnit.MILLISECONDS).map(f -> "F" + f);
+    void withLatestFrom() {
+        Observable<String> slowInterval = Observable.interval(17, MILLISECONDS).map(s -> "S" + s);
+        Observable<String> fastInterval = Observable.interval(10, MILLISECONDS).map(f -> "F" + f);
 
         Observable<String> fromSlowInterval = slowInterval.withLatestFrom(
                 fastInterval,
@@ -74,16 +79,47 @@ public class ObservableMergeOperation {
         );
         fromSlowInterval.forEach(log::info); // S0:F1, S1:F2, S2:F4, S3:F5, S4:F7, ...
 
-        Thread.sleep(1000); // added because of running 'fromSlowInterval' during that time.
+        executeIntervalStreamWithSleep(1000);
     }
 
-    // TODO
-    public void amb() {
+    /**
+     * 'second' unsubscribe after 'first' notified
+     */
+    void amb() {
+        Observable<String> first = intervalStream(100, 17, "F");
+        Observable<String> second = intervalStream(200, 10, "S");
 
+        Observable<String> amb = Observable.amb(first, second);
+        amb.subscribe(log::info); // Subscribe to F, Subscribe to S, Unsubscribe from S, F0, F1, ...
+
+        executeIntervalStreamWithSleep(1000);
     }
 
-    // TODO
-    public void ambWith() {
+    void ambWith() {
+        Observable<String> first = intervalStream(100, 17, "F");
+        Observable<String> second = intervalStream(200, 10, "S");
 
+        Observable<String> ambWith = first.ambWith(second);
+        ambWith.subscribe(log::info); // Subscribe to F, Subscribe to S, Unsubscribe from S, F0, F1, ...
+
+        executeIntervalStreamWithSleep(1000);
+    }
+
+    /**
+     * run stream during millis.
+     */
+    private void executeIntervalStreamWithSleep(long millis) {
+        try {
+            sleep(millis);
+        } catch (InterruptedException ignored) {
+
+        }
+    }
+
+    private Observable<String> intervalStream(long initialDelay, long period, String streamName) {
+        return Observable.interval(initialDelay, period, MILLISECONDS)
+                         .map(number -> streamName + number)
+                         .doOnSubscribe(() -> log.info("Subscribe to " + streamName))
+                         .doOnUnsubscribe(() -> log.info("Unsubscribe from " + streamName));
     }
 }

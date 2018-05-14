@@ -29,12 +29,22 @@ public class ObservableMergeOperationTest {
     }
 
     @Test
-    public void combineLatest() throws InterruptedException {
+    public void combineLatest() {
         observableMergeOperation.combineLatest();
     }
 
     @Test
-    public void withLatestFrom() throws InterruptedException {
+    public void withLatestFrom() {
         observableMergeOperation.withLatestFrom();
+    }
+
+    @Test
+    public void amb() {
+        observableMergeOperation.amb();
+    }
+
+    @Test
+    public void ambWith() {
+        observableMergeOperation.ambWith();
     }
 }
