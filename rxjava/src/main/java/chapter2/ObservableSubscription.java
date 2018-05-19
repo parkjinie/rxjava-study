@@ -30,7 +30,7 @@ public class ObservableSubscription {
             }
         });
 
-        // 2. Subscribe with lambda, method reference
+        // 2. Subscribe with lambda, method reference8i
         strings.subscribe(
                 log::info,
                 e -> log.warn("Failed to subscribe", e),

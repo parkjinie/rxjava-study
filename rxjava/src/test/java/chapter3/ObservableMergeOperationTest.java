@@ -5,7 +5,6 @@ import org.junit.Test;
 
 public class ObservableMergeOperationTest {
 
-
     private ObservableMergeOperation observableMergeOperation;
 
     @Before

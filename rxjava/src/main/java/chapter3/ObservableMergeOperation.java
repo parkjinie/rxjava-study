@@ -119,7 +119,7 @@ class ObservableMergeOperation {
     private Observable<String> intervalStream(long initialDelay, long period, String streamName) {
         return Observable.interval(initialDelay, period, MILLISECONDS)
                          .map(number -> streamName + number)
-                         .doOnSubscribe(() -> log.info("Subscribe to " + streamName))
-                         .doOnUnsubscribe(() -> log.info("Unsubscribe from " + streamName));
+                         .doOnSubscribe(() -> log.info("Subscribe to {}", streamName))
+                         .doOnUnsubscribe(() -> log.info("Unsubscribe from {}", streamName));
     }
 }

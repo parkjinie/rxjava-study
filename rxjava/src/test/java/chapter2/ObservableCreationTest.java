@@ -35,7 +35,6 @@ public class ObservableCreationTest {
     @Test
     public void never() {
         observableCreation.never();
-        observableCreation.error();
     }
 
     @Test
