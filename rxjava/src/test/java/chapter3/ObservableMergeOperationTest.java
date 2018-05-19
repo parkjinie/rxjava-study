@@ -18,6 +18,11 @@ public class ObservableMergeOperationTest {
     }
 
     @Test
+    public void concat() {
+        observableMergeOperation.concat();
+    }
+
+    @Test
     public void zip() {
         observableMergeOperation.zip();
     }

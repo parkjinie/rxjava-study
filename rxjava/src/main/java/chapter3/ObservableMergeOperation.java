@@ -11,14 +11,26 @@ class ObservableMergeOperation {
 
     /**
      * put multiple streams in one stream
+     * don't know what stream will be fetched in next time
      */
     void merge() {
-        Observable<String> animals = Observable.just("Rabbit", "Tiger", "Panda");
-        Observable<String> fruits = Observable.just("Mango", "Apple", "Orange");
-        Observable<String> countries = Observable.just("Korea", "Japan", "China");
+        Observable<String> animals = Observable.just("Rabbit", "Tiger", "Panda").delay(300, MILLISECONDS);
+        Observable<String> fruits = Observable.just("Mango", "Apple", "Orange").delay(170, MILLISECONDS);
+        Observable<String> countries = Observable.just("Korea", "Japan", "China").delay(200, MILLISECONDS);
 
         Observable<String> merged = Observable.merge(animals, fruits, countries);
-        merged.subscribe(log::info); // Rabbit, Tiger, Panda, Mango, Apple, Orange, Korea, Japan, China
+        merged.subscribe(log::info); // Mango, Apple, Orange, Korea, Japan, China, Rabbit, Tiger, Panda
+
+        executeIntervalStreamWithSleep(1000);
+    }
+
+    /**
+     * the next stream is fetched after the previous stream ends
+     */
+    void concat() {
+        Observable<Integer> numbers = Observable.range(1, 100);
+        Observable<Integer> concat = Observable.concat(numbers.skip(3).take(5), numbers.takeLast(7));
+        concat.subscribe(number -> log.info("number: {}", number)); // 4 5 6 7 8 94 95 96 97 98 99 100
     }
 
     /**
