@@ -14,6 +14,12 @@ public class ObservableSubscriptionTest {
 
     @Test
     public void subscribe() {
-        observableSubscription.subscribe();
+        observableSubscription.subscribeByObserver();
+        observableSubscription.subscribeByParameters();
+    }
+
+    @Test
+    public void unsubscribe() {
+        observableSubscription.unsubscribe();
     }
 }
