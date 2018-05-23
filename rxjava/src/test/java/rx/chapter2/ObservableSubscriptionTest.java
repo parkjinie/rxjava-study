@@ -1,4 +1,4 @@
-package chapter2;
+package rx.chapter2;
 
 import org.junit.Before;
 import org.junit.Test;

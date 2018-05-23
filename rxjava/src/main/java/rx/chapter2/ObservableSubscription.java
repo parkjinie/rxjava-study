@@ -1,4 +1,4 @@
-package chapter2;
+package rx.chapter2;
 
 import lombok.extern.slf4j.Slf4j;
 import rx.Observable;
