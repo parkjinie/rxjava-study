@@ -19,7 +19,7 @@ public class ObservableSubscriptionTest {
     }
 
     @Test
-    public void unsubscribe() {
+    public void unsubscribe() throws InterruptedException {
         observableSubscription.unsubscribe();
     }
 }

@@ -43,10 +43,14 @@ class ObservableSubscription {
         );
     }
 
+    private void noMore() {
+        log.info("Stopped subscription");
+    }
+
     /**
      * Unsubscribe is used to prevent memory leak
      */
-    void unsubscribe() {
+    void unsubscribe() throws InterruptedException {
         Observable<String> observable = Observable.create(subscriber -> {
             // Just example, using thread in create is Not recommended
             Runnable runnable = () -> subscriber.onNext("Subscribing");
@@ -56,22 +60,18 @@ class ObservableSubscription {
             // Add callback to run when unsubscribed
             subscriber.add(Subscriptions.create(() -> {
                 thread.interrupt();
-                subscriber.onCompleted();
+                subscriber.onNext("Unsubscribed");
             }));
         });
 
-        Subscription subscription = observable.subscribe(
-                log::info,
-                e -> log.warn("Failed to subscribe", e),
-                this::noMore
-        );
-        log.info("Do something...");
-        log.info("Do something...");
-        log.info("Do something...");
-        subscription.unsubscribe();
-    }
+        // Unsubscribe subscription 1
+        Subscription subscription1 = observable.subscribe(log::info);
+        Thread.sleep(100);
+        subscription1.unsubscribe();
 
-    private void noMore() {
-        log.info("Stopped subscription");
+        // Unsubscribe subscription 2
+        Subscription subscription2 = observable.subscribe(log::info);
+        Thread.sleep(100);
+        subscription2.unsubscribe();
     }
 }
