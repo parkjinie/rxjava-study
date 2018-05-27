@@ -20,8 +20,6 @@ class ObservableMergeOperation {
 
         Observable<String> merged = Observable.merge(animals, fruits, countries);
         merged.subscribe(log::info); // Mango, Apple, Orange, Korea, Japan, China, Rabbit, Tiger, Panda
-
-        executeIntervalStreamWithSleep(1000);
     }
 
     /**
@@ -74,8 +72,6 @@ class ObservableMergeOperation {
                 (s, f) -> f + ":" + s
         );
         combined.forEach(log::info); // F0:S0, F1:S0, F2:S0, F2:S1, F3:S1, ...
-
-        executeIntervalStreamWithSleep(1000);
     }
 
     /**
@@ -90,8 +86,6 @@ class ObservableMergeOperation {
                 (s, f) -> s + ":" + f
         );
         fromSlowInterval.forEach(log::info); // S0:F1, S1:F2, S2:F4, S3:F5, S4:F7, ...
-
-        executeIntervalStreamWithSleep(1000);
     }
 
     /**
@@ -103,8 +97,6 @@ class ObservableMergeOperation {
 
         Observable<String> amb = Observable.amb(first, second);
         amb.subscribe(log::info); // Subscribe to F, Subscribe to S, Unsubscribe from S, F0, F1, ...
-
-        executeIntervalStreamWithSleep(1000);
     }
 
     void ambWith() {
@@ -113,19 +105,6 @@ class ObservableMergeOperation {
 
         Observable<String> ambWith = first.ambWith(second);
         ambWith.subscribe(log::info); // Subscribe to F, Subscribe to S, Unsubscribe from S, F0, F1, ...
-
-        executeIntervalStreamWithSleep(1000);
-    }
-
-    /**
-     * run stream during millis.
-     */
-    private void executeIntervalStreamWithSleep(long millis) {
-        try {
-            sleep(millis);
-        } catch (InterruptedException ignored) {
-
-        }
     }
 
     private Observable<String> intervalStream(long initialDelay, long period, String streamName) {

@@ -3,6 +3,8 @@ package rx.chapter3;
 import org.junit.Before;
 import org.junit.Test;
 
+import static java.lang.Thread.sleep;
+
 public class ObservableMergeOperationTest {
 
     private ObservableMergeOperation observableMergeOperation;
@@ -13,8 +15,9 @@ public class ObservableMergeOperationTest {
     }
 
     @Test
-    public void merge() {
+    public void merge() throws InterruptedException {
         observableMergeOperation.merge();
+        sleep(1000L);
     }
 
     @Test
@@ -33,22 +36,26 @@ public class ObservableMergeOperationTest {
     }
 
     @Test
-    public void combineLatest() {
+    public void combineLatest() throws InterruptedException {
         observableMergeOperation.combineLatest();
+        sleep(1000L);
     }
 
     @Test
-    public void withLatestFrom() {
+    public void withLatestFrom() throws InterruptedException {
         observableMergeOperation.withLatestFrom();
+        sleep(1000L);
     }
 
     @Test
-    public void amb() {
+    public void amb() throws InterruptedException {
         observableMergeOperation.amb();
+        sleep(1000L);
     }
 
     @Test
-    public void ambWith() {
+    public void ambWith() throws InterruptedException {
         observableMergeOperation.ambWith();
+        sleep(1000L);
     }
 }

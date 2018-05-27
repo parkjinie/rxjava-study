@@ -3,9 +3,10 @@ package rx.chapter2;
 import lombok.extern.slf4j.Slf4j;
 import rx.Observable;
 import rx.Observer;
-import rx.Subscriber;
 import rx.Subscription;
 import rx.subscriptions.Subscriptions;
+
+import static java.lang.Thread.sleep;
 
 @Slf4j
 class ObservableSubscription {
@@ -66,12 +67,12 @@ class ObservableSubscription {
 
         // Unsubscribe subscription 1
         Subscription subscription1 = observable.subscribe(log::info);
-        Thread.sleep(100);
+        sleep(100L);
         subscription1.unsubscribe();
 
         // Unsubscribe subscription 2
         Subscription subscription2 = observable.subscribe(log::info);
-        Thread.sleep(100);
+        sleep(100L);
         subscription2.unsubscribe();
     }
 }
