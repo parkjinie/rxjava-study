@@ -65,14 +65,9 @@ class ObservableSubscription {
             }));
         });
 
-        // Unsubscribe subscription 1
-        Subscription subscription1 = observable.subscribe(log::info);
+        // Unsubscribe subscription
+        Subscription subscription = observable.subscribe(log::info);
         sleep(100L);
-        subscription1.unsubscribe();
-
-        // Unsubscribe subscription 2
-        Subscription subscription2 = observable.subscribe(log::info);
-        sleep(100L);
-        subscription2.unsubscribe();
+        subscription.unsubscribe();
     }
 }
