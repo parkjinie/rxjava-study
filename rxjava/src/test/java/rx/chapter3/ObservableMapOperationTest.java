@@ -18,6 +18,11 @@ public class ObservableMapOperationTest {
     }
 
     @Test
+    public void flatten() {
+        observableMapOperation.flatten();
+    }
+
+    @Test
     public void flatMap() {
         observableMapOperation.flatMap();
     }
