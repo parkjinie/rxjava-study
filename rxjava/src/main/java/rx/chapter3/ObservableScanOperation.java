@@ -66,19 +66,19 @@ class ObservableScanOperation {
     }
     
     void collectListByReduce() {
-        Observable<ArrayList<Object>> all = Observable.range(1, 10)
-                                                      .reduce(new ArrayList<>(), (list, item) -> {
-                                                          list.add(item);
-                                                          return list;
-                                                      });
+        Observable<List<Object>> all = Observable.range(1, 10)
+                                                 .reduce(new ArrayList<>(), (list, item) -> {
+                                                     list.add(item);
+                                                     return list;
+                                                 });
 
         log.info("Collect list by reduce");
         all.subscribe(list -> log.info("list: {}", list)); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     }
 
     void collectList() {
-        Observable<ArrayList<Object>> all = Observable.range(1, 10)
-                                                      .collect(ArrayList::new, List::add);
+        Observable<List<Object>> all = Observable.range(1, 10)
+                                                 .collect(ArrayList::new, List::add);
 
         log.info("Collect list");
         all.subscribe(list -> log.info("list: {}", list)); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]

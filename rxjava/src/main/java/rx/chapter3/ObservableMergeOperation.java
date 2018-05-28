@@ -3,7 +3,6 @@ package rx.chapter3;
 import lombok.extern.slf4j.Slf4j;
 import rx.Observable;
 
-import static java.lang.Thread.sleep;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 @Slf4j
