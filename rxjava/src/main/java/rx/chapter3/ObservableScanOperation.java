@@ -100,6 +100,14 @@ class ObservableScanOperation {
         distinctNumbers.subscribe(number -> log.info("number: {}", number)); // 1, 4, 3, 2, 6, 7, 5, 9, 8
     }
 
+    void distinctUntilChanged() {
+        List<Integer> temperaturesPerMinute = Arrays.asList(23, 23, 23, 23, 23, 24, 24, 24, 25, 25, 25, 27, 27, 25);
+        Observable<Integer> changedTemperatures = Observable.from(temperaturesPerMinute)
+                                                            .distinctUntilChanged();
+
+        changedTemperatures.subscribe(number -> log.info("number: {}", number)); // 23, 24, 25, 27, 25
+    }
+
     void take() {
         Observable<String> numbers = Observable.range(1, 5)
                                                .map(Object::toString);

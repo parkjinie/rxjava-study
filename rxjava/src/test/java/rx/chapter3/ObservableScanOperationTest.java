@@ -46,6 +46,11 @@ public class ObservableScanOperationTest {
     }
 
     @Test
+    public void distinctUntilChanged() {
+        observableScanOperation.distinctUntilChanged();
+    }
+
+    @Test
     public void take() {
         observableScanOperation.take();
     }
