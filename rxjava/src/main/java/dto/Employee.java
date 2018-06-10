@@ -4,10 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
-/**
- * @author jinie@coupang.com
- * @since 2018. 5. 29.
- */
 @Getter
 @ToString
 @AllArgsConstructor

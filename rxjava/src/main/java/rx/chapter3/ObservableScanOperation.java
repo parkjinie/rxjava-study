@@ -11,6 +11,9 @@ import java.util.List;
 @Slf4j
 class ObservableScanOperation {
 
+    /**
+     * useful when both intermediate progress and result values are desired.
+     */
     void scan() {
         Observable<Long> progress = Observable.just(10L, 14L, 12L, 13L, 14L, 16L);
         Observable<Long> totalProgress = progress.scan((total, chunk) -> total + chunk); // 10L, 24L, 36L, 49L, 63L, 79L
@@ -76,7 +79,7 @@ class ObservableScanOperation {
         all.subscribe(list -> log.info("list: {}", list)); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     }
 
-    void collectList() {
+    void collectToList() {
         Observable<List<Object>> all = Observable.range(1, 10)
                                                  .collect(ArrayList::new, List::add);
 
@@ -84,7 +87,7 @@ class ObservableScanOperation {
         all.subscribe(list -> log.info("list: {}", list)); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     }
 
-    void collectString() {
+    void collectToString() {
         Observable<String> str = Observable.range(1, 10)
                                            .collect(StringBuilder::new, (sb, number) -> sb.append(number).append(", "))
                                            .map(StringBuilder::toString);

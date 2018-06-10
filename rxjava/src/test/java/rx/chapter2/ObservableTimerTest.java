@@ -7,10 +7,6 @@ import static java.lang.Thread.sleep;
 import static java.util.concurrent.TimeUnit.MICROSECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-/**
- * @author jinie@coupang.com
- * @since 2018. 5. 27.
- */
 public class ObservableTimerTest {
 
     private ObservableTimer observableTimer;

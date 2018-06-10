@@ -5,10 +5,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * @author jinie@coupang.com
- * @since 2018. 5. 29.
- */
 public class ObservableSplitOperationTest {
 
     private ObservableSplitOperation observableSplitOperation;

@@ -3,10 +3,6 @@ package rx.chapter2;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author jinie@coupang.com
- * @since 2018. 5. 27.
- */
 public class ObservableConnectionTest {
 
     private ObservableConnection observableConnection;

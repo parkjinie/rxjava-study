@@ -9,10 +9,6 @@ import java.util.List;
 
 import static dto.EmployeeType.*;
 
-/**
- * @author jinie@coupang.com
- * @since 2018. 5. 29.
- */
 @Slf4j
 class ObservableSplitOperation {
 

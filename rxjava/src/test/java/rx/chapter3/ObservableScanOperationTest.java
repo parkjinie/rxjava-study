@@ -32,12 +32,12 @@ public class ObservableScanOperationTest {
     @Test
     public void collectList() {
         observableScanOperation.collectListByReduce();
-        observableScanOperation.collectList();
+        observableScanOperation.collectToList();
     }
 
     @Test
     public void collectString() {
-        observableScanOperation.collectString();
+        observableScanOperation.collectToString();
     }
 
     @Test
