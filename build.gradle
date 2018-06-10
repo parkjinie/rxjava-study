@@ -1,7 +1,19 @@
 group 'jinie'
 version '1.0-SNAPSHOT'
 
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url 'https://plugins.gradle.org/m2/' }
+    }
+
+    dependencies {
+        classpath 'io.franzbecker:gradle-lombok:1.14'
+    }
+}
+
 subprojects {
+    apply plugin: 'io.franzbecker.gradle-lombok'
     apply plugin: 'java'
 
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -11,8 +23,6 @@ subprojects {
     }
 
     dependencies {
-//        compile 'javax.inject:javax.inject:1'
-
         compile 'org.slf4j:slf4j-api:1.7.25'
         compile 'ch.qos.logback:logback-classic:1.2.3'
 
