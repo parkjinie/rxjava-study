@@ -56,4 +56,15 @@ class ObservableCreation {
                           () -> {} // Never called
                   );
     }
+
+    /**
+     * defers making observable waiting for subscribing
+     * @param observable
+     * @param <T>
+     */
+    <T> void defer(Observable<T> observable) {
+        log.info("[Observable.defer()]");
+        Observable.defer(() -> observable)
+                  .subscribe(t -> log.info("{}", t));
+    }
 }

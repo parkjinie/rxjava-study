@@ -2,6 +2,7 @@ package rx.chapter2;
 
 import org.junit.Before;
 import org.junit.Test;
+import rx.Observable;
 
 public class ObservableCreationTest {
 
@@ -40,5 +41,10 @@ public class ObservableCreationTest {
     @Test
     public void error() {
         observableCreation.error();
+    }
+
+    @Test
+    public void defer() {
+        observableCreation.defer(Observable.range(1, 3));
     }
 }
